@@ -7,7 +7,7 @@ module.exports = {
     { id: "legacy-migration-plan", name: "Legacy Migration Plan" },
     { id: "architectural-consultation", name: "Architectural Consultation" },
     { id: "tech-radar-review", name: "Tech Radar Review" },
-    { id: "ai-efficiency-review", name: "AI Efficiency Review" },
+    { id: "ai-optimization", name: "AI Optimization" },
     { id: "team-collaboration", name: "Team Collaboration" },
   ],
 };
