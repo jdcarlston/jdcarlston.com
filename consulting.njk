@@ -2,7 +2,7 @@
 layout: base.njk
 permalink: /consulting/
 title: Consulting
-description: Architecture and engineering consulting from JD Carlston, for mission-driven startups, nonprofits and creative studios. Fixed-scope packages, from a two-hour consultation to a legacy migration plan.
+description: Architecture and engineering consulting from JD Carlston, hourly, by scope or by the block, from a two-hour consultation to a legacy migration plan.
 ---
 <section class="art-top">
   {% set faint = true %}{% include "hero-art.njk" %}
@@ -10,12 +10,17 @@ description: Architecture and engineering consulting from JD Carlston, for missi
   <div class="sechead">
     <h1 class="h1--page">Consulting</h1>
   </div>
-  <p class="lede consult-lede">Architecture help for teams who care about what they're building and the people building it.</p>
-  <p class="intro">I work with mission-driven startups, nonprofits and creative studios. Every engagement has a fixed scope, so you know what you'll get and when. Not sure which one fits? Start with a free call and we'll work it out.</p>
-  {% set quote = "Need and Value are intimately linked." %}
-  {% set from = "what-in-the-world-is-world-class-engineering-part-3" %}
-  {% set fromTitle = "What in the World Is World-Class Engineering? Part 3" %}
-  {% include "epigraph.njk" %}
+  <p class="lede consult-lede">When the system starts slowing your people down, it's time for another set of eyes.</p>
+  <p class="intro">Maybe it sounds like this:</p>
+  <ul class="pains">
+    <li>A change that used to take two days now takes two weeks, and nobody can tell you why.</li>
+    <li>You’ve had the same architecture debate three times, and nobody can find why you decided it the first time.</li>
+    <li>Everyone’s busy, everyone’s blocked, and it takes days to find out who owns the thing that broke.</li>
+    <li>The migration is in year two, both systems are still live, and your best engineers are starting to avoid it.</li>
+    <li>You acquired a company and inherited two auth systems, two pipelines and two definitions of done.</li>
+    <li>Your CFO keeps asking what the AI tools are buying you, and you don’t have clean numbers.</li>
+  </ul>
+  <p class="intro">I’ve sat in those rooms as a VP, as a Senior Director, as an architect, and as an engineer. I come in, find the real constraint, and work alongside your people. Hourly, by the project or by the block of time, whatever fits your needs.</p>
   <div class="actions">
     <a class="btn btn--solid" href="#inquire">Send an inquiry</a>
     <a class="btn btn--line" href="{{ consulting.calendly }}">Book a free consult</a>
