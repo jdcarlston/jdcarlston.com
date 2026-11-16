@@ -4,9 +4,9 @@ module.exports = {
   calendly: "https://calendly.com/jdcarlston/preliminary-consult",
   offers: [
     { id: "domain-boundary-splits", name: "Domain Boundary Splits" },
-    { id: "legacy-migration-plan", name: "Legacy Migration Plan" },
-    { id: "architectural-consultation", name: "Architectural Consultation" },
-    { id: "tech-radar-review", name: "Tech Radar Review" },
+    { id: "legacy-migrations", name: "Legacy Migrations" },
+    { id: "architectural-decisions", name: "Architectural Decisions" },
+    { id: "leadership-training", name: "Leadership Training" },
     { id: "ai-optimization", name: "AI Optimization" },
     { id: "team-collaboration", name: "Team Collaboration" },
   ],
