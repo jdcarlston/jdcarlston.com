@@ -3,3 +3,4 @@ _site/
 .venv/
 writing/
 .DS_Store
+.netlify/

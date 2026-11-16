@@ -1,0 +1,119 @@
+---
+layout: base.njk
+permalink: /consulting/
+title: Consulting
+description: Architecture and engineering consulting from JD Carlston, for mission-driven startups, nonprofits and creative studios. Fixed-scope packages, from a two-hour consultation to a legacy migration plan.
+---
+<section class="art-top">
+  {% set faint = true %}{% include "hero-art.njk" %}
+<div class="section wrap consult-hero">
+  <div class="sechead">
+    <h1 class="h1--page">Consulting</h1>
+  </div>
+  <p class="lede consult-lede">Architecture help for teams who care about what they're building and the people building it.</p>
+  <p class="intro">I work with mission-driven startups, nonprofits and creative studios. Every engagement has a fixed scope, so you know what you'll get and when. Not sure which one fits? Start with a free call and we'll work it out.</p>
+  {% set quote = "Need and Value are intimately linked." %}
+  {% set from = "what-in-the-world-is-world-class-engineering-part-3" %}
+  {% set fromTitle = "What in the World Is World-Class Engineering? Part 3" %}
+  {% include "epigraph.njk" %}
+  <div class="actions">
+    <a class="btn btn--solid" href="#inquire">Send an inquiry</a>
+    <a class="btn btn--line" href="{{ consulting.calendly }}">Book a free consult</a>
+  </div>
+</div>
+</section>
+
+<section class="section-band">
+  <div class="section wrap">
+    <ol class="offers">
+      {% for o in consulting.offers %}
+      <li class="offer" id="{{ o.id }}">
+        <div class="offer__head">
+          <p class="mono teal small">{{ loop.index }} · {{ o.step }}</p>
+          <h2>{{ o.name }}</h2>
+          <p class="mono muted small">{{ o.format }}</p>
+        </div>
+        <div class="offer__body">
+          <p>{{ o.summary }}</p>
+          <p class="mono teal small">you get</p>
+          <ul>
+            {% for d in o.deliverables %}<li>{{ d }}</li>{% endfor %}
+          </ul>
+          <p class="muted"><strong>Good for:</strong> {{ o.goodFor }}</p>
+          <a class="offer__ask" href="?service={{ o.id }}#inquire">Ask about {{ o.name }} →</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section-band" id="inquire">
+  <div class="section wrap split">
+    <div class="split__main">
+      <div class="sechead">
+        <h2>Tell me about your problem</h2>
+      </div>
+      <p class="intro">A few sentences is plenty. You'll get my calendar link by email right away, and I read every inquiry and reply personally within two business days.</p>
+      <form class="form" name="consulting" method="POST" action="/consulting/thanks/" data-netlify="true" netlify-honeypot="company_url">
+        <input type="hidden" name="form-name" value="consulting">
+        <p class="hp"><label>Leave this empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-org">Organization</label>
+            <input id="f-org" name="organization" type="text" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="f-service">What you're interested in</label>
+            <select id="f-service" name="service">
+              <option value="not-sure">Not sure yet</option>
+              {% for o in consulting.offers %}<option value="{{ o.id }}">{{ o.name }}</option>{% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-message">What's going on?</label>
+          <textarea id="f-message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-phone">Mobile number <span class="optional">(optional)</span></label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+          </div>
+        </div>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="text_ok" value="yes"> It's OK to text me about this inquiry.</label>
+          <label class="check"><input type="checkbox" name="updates" value="yes"> Also send me occasional updates and new writing. Unsubscribe anytime.</label>
+        </div>
+        <button class="btn btn--solid" type="submit">Send inquiry</button>
+      </form>
+    </div>
+    <aside class="split__side">
+      <p class="mono teal small">rather talk first?</p>
+      <a class="linkcard" href="{{ consulting.calendly }}">
+        <span class="mono teal small">Free preliminary consult →</span>
+        <span class="linkcard__title">Book a time on my calendar</span>
+      </a>
+      <p class="muted small-print">Engagements are contracted through Red Thread Labs LLC.</p>
+    </aside>
+  </div>
+</section>
+
+<script>
+  // Preselect the service when someone arrives from an "Ask about" link.
+  (function () {
+    var s = new URLSearchParams(location.search).get("service");
+    var sel = document.getElementById("f-service");
+    if (s && sel && sel.querySelector('option[value="' + s.replace(/[^a-z-]/g, "") + '"]')) sel.value = s;
+  })();
+</script>

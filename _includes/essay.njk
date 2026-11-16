@@ -6,7 +6,7 @@ layout: base.njk
 {% set around = collections.essays | neighbors(page.url) %}
 <article class="essay wrap">
   <header class="essay__head">
-    <p class="sec">§2 · essay{% if series %} · part {{ part }} of {{ (collections.essays | inSeries(series)) | length }}{% endif %}</p>
+    <p class="sec">essay{% if series %} · part {{ part }} of {{ (collections.essays | inSeries(series)) | length }}{% endif %}</p>
     <h1>{{ title }}</h1>
     {% if subtitle %}<p class="essay__sub">{{ subtitle }}</p>{% endif %}
     <p class="mono muted small">{{ page.date | isoDate }} · {{ content | readingTime }} min read · {{ topic }}</p>

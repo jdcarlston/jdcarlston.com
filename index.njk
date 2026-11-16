@@ -3,15 +3,7 @@ layout: base.njk
 heroHeader: true
 ---
 <section class="hero" id="top">
-  <svg class="hero__art" viewBox="0 0 1440 760" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
-    <path d="{{ hero.weaveV }}" fill="none" stroke="#2A2724" stroke-width="3"></path>
-    <path d="{{ hero.weaveH }}" fill="none" stroke="#173536" stroke-width="3"></path>
-    <path d="{{ hero.fibersDim }}" fill="none" stroke="#24403F" stroke-width="1.5" stroke-linecap="round"></path>
-    <path d="{{ hero.fibersWarm }}" fill="none" stroke="#3A2F2A" stroke-width="1.5" stroke-linecap="round"></path>
-    <path d="{{ hero.curveA }}" fill="none" stroke="#2E6B6E" stroke-width="1.5"></path>
-    <path d="{{ hero.curveB }}" fill="none" stroke="#FF5757" stroke-width="2.5"></path>
-    <circle cx="{{ hero.node.x }}" cy="{{ hero.node.y }}" r="7" fill="#0B0B0C" stroke="#4FA8AC" stroke-width="2"></circle>
-  </svg>
+  {% set faint = false %}{% include "hero-art.njk" %}
   <div class="wrap hero__inner">
     <header class="bar__inner hero__bar">
       <a class="brand" href="/">JD Carlston</a>
@@ -37,7 +29,6 @@ heroHeader: true
 
 <section class="section wrap" id="work">
   <div class="sechead">
-    <span class="sec">§1</span>
     <h2>Systems that ship, teams that deliver, and customers that buy</h2>
   </div>
   <p class="intro">My work sits where architecture meets the people who have to live with it, and engineers get better at their craft along the way.</p>
@@ -86,7 +77,6 @@ heroHeader: true
 <section class="section-band" id="writing">
   <div class="section wrap">
     <div class="sechead">
-      <span class="sec">§2</span>
       <h2>Essays</h2>
     </div>
     {% set quote = "I want meaning in my life to be structured more like fiberglass and less like a crystal lattice." %}
@@ -103,7 +93,7 @@ heroHeader: true
   <div class="section wrap split">
     <div class="split__main">
       <div class="sechead">
-        <span class="sec">§3 · in the room</span>
+        <span class="sec">in the room</span>
         <h2 class="h2--small">Facilitation and consulting</h2>
       </div>
       {% set quote = "The future depends on how well we collaborate." %}
@@ -112,6 +102,7 @@ heroHeader: true
       {% include "epigraph.njk" %}
       <p>I bring engineers and subject-matter experts into one room to work through a real problem together. With Denver Water, I built the Storm Kit, a tool that improved their water quality prediction. In 2026 I ran a Design Storm and a workshop at Explore DDD on deciding where domain boundaries belong after an EventStorm.</p>
       <p class="muted">Domain-modeling sprints, working sessions and small team offsites, mostly for mission-driven startups, nonprofits and creative studios.</p>
+      <p><a class="btn btn--line" href="/consulting/">See consulting packages</a></p>
       <ul class="ledger">
         <li><span class="mono muted">2026</span><span>From EventStorm to Boundaries · workshop, Explore DDD</span></li>
         <li><span class="mono muted">2026</span><span>Design Storm · Explore DDD</span></li>

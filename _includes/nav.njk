@@ -1,6 +1,7 @@
 <nav class="nav mono" aria-label="Main">
-  <a href="/#work">§1 work</a>
-  <a href="/essays/"{% if page.url.startsWith("/essays/") %} aria-current="page"{% endif %}>§2 writing</a>
-  <a href="/#workshops">§3 workshops</a>
-  <a href="#contact">§4 contact</a>
+  <a href="/#work">work</a>
+  <a href="/essays/"{% if page.url.startsWith("/essays/") %} aria-current="page"{% endif %}>writing</a>
+  <a href="/#workshops">workshops</a>
+  <a href="/consulting/"{% if page.url.startsWith("/consulting/") %} aria-current="page"{% endif %}>consulting</a>
+  <a href="#contact">contact</a>
 </nav>

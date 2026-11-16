@@ -9,6 +9,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("scripts/**");
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add(".venv/**");
+  eleventyConfig.ignores.add("netlify/**");
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("essays/images");
