@@ -59,7 +59,7 @@ description: Architecture and engineering consulting from JD Carlston, hourly, b
       <div class="sechead">
         <h2>Tell me about your problem</h2>
       </div>
-      <p class="intro">A few sentences is plenty. You'll get my calendar link by email right away, and I read every inquiry and reply personally within two business days.</p>
+      <p class="intro">Please let me know what you’re up against. You’ll get my calendar link to book a preliminary consultation. I read every inquiry and reply personally within two business days.</p>
       <form class="form" name="consulting" method="POST" action="/consulting/thanks/" data-netlify="true" netlify-honeypot="company_url">
         <input type="hidden" name="form-name" value="consulting">
         <p class="hp"><label>Leave this empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
@@ -120,5 +120,32 @@ description: Architecture and engineering consulting from JD Carlston, hourly, b
     var s = new URLSearchParams(location.search).get("service");
     var sel = document.getElementById("f-service");
     if (s && sel && sel.querySelector('option[value="' + s.replace(/[^a-z-]/g, "") + '"]')) sel.value = s;
+  })();
+
+  // On submit, send the inquiry to Netlify, then go straight to Calendly
+  // with name and email filled in. Without JavaScript, the form posts
+  // normally and the thanks page forwards to Calendly instead.
+  (function () {
+    var form = document.querySelector('form[name="consulting"]');
+    if (!form || !window.fetch) return;
+    var calendly = "{{ consulting.calendly }}";
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var data = new FormData(form);
+      var btn = form.querySelector('button[type="submit"], .btn');
+      if (btn) btn.disabled = true;
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString()
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        var q = new URLSearchParams({ name: data.get("name") || "", email: data.get("email") || "" });
+        location.href = calendly + "?" + q.toString();
+      }).catch(function () {
+        if (btn) btn.disabled = false;
+        form.submit();
+      });
+    });
   })();
 </script>
