@@ -30,26 +30,19 @@ description: Architecture and engineering consulting from JD Carlston, hourly, b
 
 <section class="section-band">
   <div class="section wrap">
-    <ol class="offers">
+    <div class="sechead">
+      <h2>Services</h2>
+    </div>
+    <p class="intro">Pick one to start your inquiry.</p>
+    <div class="tiles">
       {% for o in consulting.offers %}
-      <li class="offer" id="{{ o.id }}">
-        <div class="offer__head">
-          <p class="mono teal small">{{ loop.index }} · {{ o.step }}</p>
-          <h2>{{ o.name }}</h2>
-          <p class="mono muted small">{{ o.format }}</p>
-        </div>
-        <div class="offer__body">
-          <p>{{ o.summary }}</p>
-          <p class="mono teal small">you get</p>
-          <ul>
-            {% for d in o.deliverables %}<li>{{ d }}</li>{% endfor %}
-          </ul>
-          <p class="muted"><strong>Good for:</strong> {{ o.goodFor }}</p>
-          <a class="offer__ask" href="?service={{ o.id }}#inquire">Ask about {{ o.name }} →</a>
-        </div>
-      </li>
+      <a class="tile" href="?service={{ o.id }}#inquire" data-service="{{ o.id }}">
+        <span class="mono teal small">{{ "0" ~ loop.index }}</span>
+        <span class="tile__name">{{ o.name }}</span>
+        <span class="tile__go" aria-hidden="true">→</span>
+      </a>
       {% endfor %}
-    </ol>
+    </div>
   </div>
 </section>
 
@@ -120,6 +113,28 @@ description: Architecture and engineering consulting from JD Carlston, hourly, b
     var s = new URLSearchParams(location.search).get("service");
     var sel = document.getElementById("f-service");
     if (s && sel && sel.querySelector('option[value="' + s.replace(/[^a-z-]/g, "") + '"]')) sel.value = s;
+  })();
+
+  // Clicking a service tile fills the form's service box and jumps to the form.
+  (function () {
+    var sel = document.getElementById("f-service");
+    var tiles = document.querySelectorAll(".tile[data-service]");
+    function mark(id) {
+      tiles.forEach(function (t) { t.classList.toggle("is-selected", t.dataset.service === id); });
+    }
+    tiles.forEach(function (t) {
+      t.addEventListener("click", function (e) {
+        if (!sel) return;
+        e.preventDefault();
+        sel.value = t.dataset.service;
+        mark(sel.value);
+        history.replaceState(null, "", "?service=" + sel.value + "#inquire");
+        document.getElementById("inquire").scrollIntoView({ behavior: "smooth", block: "start" });
+        var name = document.getElementById("f-name");
+        if (name) setTimeout(function () { name.focus({ preventScroll: true }); }, 400);
+      });
+    });
+    if (sel) { sel.addEventListener("change", function () { mark(sel.value); }); mark(sel.value); }
   })();
 
   // On submit, send the inquiry to Netlify, then go straight to Calendly
