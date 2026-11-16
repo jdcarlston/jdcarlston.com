@@ -1,0 +1,7 @@
+# Netlify builds the site with Eleventy on every push to main.
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "22"

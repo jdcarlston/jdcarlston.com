@@ -1,0 +1,16 @@
+<div class="tablewrap">
+  <table class="essays">
+    <thead>
+      <tr><th scope="col">date</th><th scope="col">title</th><th scope="col" class="r">topic</th></tr>
+    </thead>
+    <tbody>
+      {% for p in rows %}
+      <tr>
+        <td class="mono muted nowrap">{{ p.date | isoDate }}</td>
+        <td><a href="{{ p.url }}">{{ p.data.title }}</a></td>
+        <td class="mono teal r nowrap">{{ p.data.topic }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

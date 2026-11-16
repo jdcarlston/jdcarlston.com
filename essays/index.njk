@@ -1,0 +1,19 @@
+---
+layout: base.njk
+permalink: /essays/
+title: Essays
+description: Essays by JD Carlston on engineering, architecture, leadership and the people who live with the systems we build.
+---
+<section class="section wrap">
+  <div class="sechead">
+    <span class="sec">§2</span>
+    <h1 class="h1--page">Essays</h1>
+  </div>
+  {% set quote = "I want meaning in my life to be structured more like fiberglass and less like a crystal lattice." %}
+  {% set from = "trust-is-a-jenky-state-machine" %}
+  {% set fromTitle = "Trust is a Jenky State Machine" %}
+  {% include "epigraph.njk" %}
+  {% include "series-cards.njk" %}
+  {% set rows = collections.essays %}
+  {% include "essay-table.njk" %}
+</section>

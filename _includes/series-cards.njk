@@ -1,0 +1,11 @@
+<div class="series">
+  {% for key, s in site.series %}
+    {% set parts = collections.essays | inSeries(key) %}
+    {% set first = parts | first %}
+    <a class="seriescard" href="{{ first.url }}">
+      <p class="mono teal small">series · {{ parts | length }} parts · {{ first.date | year }}</p>
+      <h3>{{ s.title }}</h3>
+      <p class="muted">{{ s.blurb }}</p>
+    </a>
+  {% endfor %}
+</div>

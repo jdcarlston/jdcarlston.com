@@ -1,0 +1,61 @@
+---
+layout: base.njk
+---
+{% set body = content | withHeadingIds %}
+{% set contents = content | toc %}
+{% set around = collections.essays | neighbors(page.url) %}
+<article class="essay wrap">
+  <header class="essay__head">
+    <p class="sec">§2 · essay{% if series %} · part {{ part }} of {{ (collections.essays | inSeries(series)) | length }}{% endif %}</p>
+    <h1>{{ title }}</h1>
+    {% if subtitle %}<p class="essay__sub">{{ subtitle }}</p>{% endif %}
+    <p class="mono muted small">{{ page.date | isoDate }} · {{ content | readingTime }} min read · {{ topic }}</p>
+  </header>
+
+  <div class="essay__grid">
+    <div class="prose">
+      {{ body | safe }}
+    </div>
+
+    <aside class="essay__aside" aria-label="About this essay">
+      {% if series %}
+      <div class="aside__block">
+        <p class="mono teal small">series</p>
+        <p class="aside__title">{{ site.series[series].title }}</p>
+        <ol class="aside__list">
+          {% for p in collections.essays | inSeries(series) %}
+          <li>{% if p.url == page.url %}<span aria-current="page">Part {{ p.data.part }}</span>{% else %}<a href="{{ p.url }}">Part {{ p.data.part }}</a>{% endif %}</li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      {% if contents | length > 1 %}
+      <div class="aside__block">
+        <p class="mono teal small">contents</p>
+        <ol class="aside__list">
+          {% for h in contents %}<li><a href="#{{ h.id }}">{{ h.text }}</a></li>{% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      <div class="aside__block">
+        <p class="mono teal small">first published</p>
+        <p class="muted">On Medium, {{ page.date | monthYear }}.</p>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<nav class="wrap pager" aria-label="More essays">
+  {% if around.earlier %}
+  <a class="pager__link" href="{{ around.earlier.url }}">
+    <span class="mono muted small">← earlier · {{ around.earlier.date | isoDate }}</span>
+    <span class="pager__title">{{ around.earlier.data.title }}</span>
+  </a>
+  {% endif %}
+  {% if around.later %}
+  <a class="pager__link pager__link--next" href="{{ around.later.url }}">
+    <span class="mono muted small">later · {{ around.later.date | isoDate }} →</span>
+    <span class="pager__title">{{ around.later.data.title }}</span>
+  </a>
+  {% endif %}
+</nav>

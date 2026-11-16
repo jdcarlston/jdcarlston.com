@@ -1,0 +1,133 @@
+---
+layout: base.njk
+heroHeader: true
+---
+<section class="hero" id="top">
+  <svg class="hero__art" viewBox="0 0 1440 760" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+    <path d="{{ hero.weaveV }}" fill="none" stroke="#2A2724" stroke-width="3"></path>
+    <path d="{{ hero.weaveH }}" fill="none" stroke="#173536" stroke-width="3"></path>
+    <path d="{{ hero.fibersDim }}" fill="none" stroke="#24403F" stroke-width="1.5" stroke-linecap="round"></path>
+    <path d="{{ hero.fibersWarm }}" fill="none" stroke="#3A2F2A" stroke-width="1.5" stroke-linecap="round"></path>
+    <path d="{{ hero.curveA }}" fill="none" stroke="#2E6B6E" stroke-width="1.5"></path>
+    <path d="{{ hero.curveB }}" fill="none" stroke="#FF5757" stroke-width="2.5"></path>
+    <circle cx="{{ hero.node.x }}" cy="{{ hero.node.y }}" r="7" fill="#0B0B0C" stroke="#4FA8AC" stroke-width="2"></circle>
+  </svg>
+  <div class="wrap hero__inner">
+    <header class="bar__inner hero__bar">
+      <a class="brand" href="/">JD Carlston</a>
+      {% include "nav.njk" %}
+    </header>
+    <div class="hero__copy">
+      <p class="mono teal hero__eq">Trust = Consistency / Time</p>
+      <h1 class="hero__title">Where systems<br>meet people.</h1>
+      <div class="hero__intro">
+        {% if site.hasPortrait %}
+        <img class="portrait" src="/assets/profile.jpg" alt="JD Carlston" width="112" height="112">
+        {% endif %}
+        <p class="lede">I'm JD Carlston, an engineering leader, facilitator and coach in Salt Lake City, with more than twenty years building software and the teams that own it.</p>
+      </div>
+      <p class="muted hero__looking">Most recently Director of Product Engineering at Stack Overflow. Looking for a Director or VP of Engineering, Principal Architect or Fractional CTO role, in Salt Lake or remote.</p>
+      <div class="actions">
+        <a class="btn btn--solid" href="#contact">Get in touch</a>
+        <a class="btn btn--line" href="/essays/">Read the essays</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="work">
+  <div class="sechead">
+    <span class="sec">§1</span>
+    <h2>Systems that ship, teams that deliver, and customers that buy</h2>
+  </div>
+  <p class="intro">My work sits where architecture meets the people who have to live with it, and engineers get better at their craft along the way.</p>
+  {% set quote = "Organizations exist in as much as they provide service to humans." %}
+  {% set from = "what-in-the-world-is-world-class-engineering-part-2" %}
+  {% set fromTitle = "What in the World Is World-Class Engineering? Part 2" %}
+  {% include "epigraph.njk" %}
+  <div class="cards">
+    <article class="card">
+      <p class="mono teal small">n = 1</p>
+      <h3>Stack Overflow</h3>
+      <p class="muted">Director of Product Engineering, Acting Principal Architect</p>
+      <p>Led two full-stack teams maintaining the Public Platform and led the Architecture Group. We doubled deploy frequency, cut build times by 20%, and delivered a six-month redesign on microservices and microfrontends on schedule. I also helped develop the company's AI productivity program, including an MCP server and AI hackathons.</p>
+      <dl class="stats">
+        <div><dt>deploy frequency</dt><dd>2×</dd></div>
+        <div><dt>build times</dt><dd>−20%</dd></div>
+      </dl>
+    </article>
+    <article class="card">
+      <p class="mono teal small">n = 2</p>
+      <h3>Pluralsight</h3>
+      <p class="muted">Senior Director, Acting Principal Architect</p>
+      <p>Oversaw architecture for an engineering org of 300 to 500 people across 65+ teams in the US, India and Australia. Connected product structures to architecture and payment systems, built identity and audit systems, and worked closely with Security.</p>
+      <dl class="stats">
+        <div><dt>teams</dt><dd>65+</dd></div>
+        <div><dt>continents</dt><dd>3</dd></div>
+      </dl>
+    </article>
+    <article class="card">
+      <p class="mono teal small">n = 3</p>
+      <h3>Merrick Bank</h3>
+      <p class="muted">Acting Principal Architect</p>
+      <dl class="stats">
+        <div><dt>engineers</dt><dd>2 → 16</dd></div>
+      </dl>
+      <p>Helped grow engineering from 2 people to 16 and wrote the hiring process. Led payment processing work and built identity, authorization and audit trail systems.</p>
+    </article>
+    <article class="card">
+      <p class="mono teal small">n &lt; 3</p>
+      <h3>Earlier</h3>
+      <p>Equis International/Reuters, ProTel Networks, HRN and Galileo, including global teams, technical pre-sales, and point-of-sale and payment systems.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section-band" id="writing">
+  <div class="section wrap">
+    <div class="sechead">
+      <span class="sec">§2</span>
+      <h2>Essays</h2>
+    </div>
+    {% set quote = "I want meaning in my life to be structured more like fiberglass and less like a crystal lattice." %}
+    {% set from = "trust-is-a-jenky-state-machine" %}
+    {% set fromTitle = "Trust is a Jenky State Machine" %}
+    {% include "epigraph.njk" %}
+    {% include "series-cards.njk" %}
+    {% set rows = collections.essays | standalone %}
+    {% include "essay-table.njk" %}
+  </div>
+</section>
+
+<section class="section-band" id="workshops">
+  <div class="section wrap split">
+    <div class="split__main">
+      <div class="sechead">
+        <span class="sec">§3 · in the room</span>
+        <h2 class="h2--small">Facilitation and consulting</h2>
+      </div>
+      {% set quote = "The future depends on how well we collaborate." %}
+      {% set from = "what-in-the-world-is-world-class-engineering-part-3" %}
+      {% set fromTitle = "What in the World Is World-Class Engineering? Part 3" %}
+      {% include "epigraph.njk" %}
+      <p>I bring engineers and subject-matter experts into one room to work through a real problem together. With Denver Water, I built the Storm Kit, a tool that improved their water quality prediction. In 2026 I ran a Design Storm and a workshop at Explore DDD on deciding where domain boundaries belong after an EventStorm.</p>
+      <p class="muted">Domain-modeling sprints, working sessions and small team offsites, mostly for mission-driven startups, nonprofits and creative studios.</p>
+      <ul class="ledger">
+        <li><span class="mono muted">2026</span><span>From EventStorm to Boundaries · workshop, Explore DDD</span></li>
+        <li><span class="mono muted">2026</span><span>Design Storm · Explore DDD</span></li>
+        <li><span class="mono muted">Denver Water</span><span>Storm Kit · water quality prediction</span></li>
+      </ul>
+    </div>
+    <div class="split__side">
+      <p class="mono teal small">elsewhere</p>
+      <a class="linkcard" href="https://red-thread-labs.com">
+        <span class="mono teal small">Red Thread Labs →</span>
+        <span class="linkcard__title">Coaching and Love Labs workshops</span>
+      </a>
+      <a class="linkcard" href="https://maddercraft.com">
+        <span class="mono teal small">Madder Craft →</span>
+        <span class="linkcard__title">Poetry, painting and music as Roz Madder</span>
+      </a>
+    </div>
+  </div>
+</section>
