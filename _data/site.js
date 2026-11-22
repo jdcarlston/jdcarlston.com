@@ -7,6 +7,13 @@ module.exports = {
   description:
     "JD Carlston: engineering leader, facilitator and coach in Salt Lake City. Systems that ship, teams that deliver, and customers that buy.",
   email: "contact@red-thread-labs.com",
+  // Every picture on the site (essays/images/ and the ones in assets/) can be served from the Cloudflare R2 bucket "jdcarlston-media"
+  // at media.jdcarlston.com. Once the bucket is live and the pictures are uploaded (npm run media:upload),
+  // set useBucket to true. While previewing (npm start) they always load from this folder.
+  media: {
+    base: "https://media.jdcarlston.com",
+    useBucket: true,
+  },
   year: new Date().getFullYear(),
   // The portrait shows only once assets/profile.jpg exists.
   hasPortrait: fs.existsSync(path.join(__dirname, "..", "assets", "profile.jpg")),

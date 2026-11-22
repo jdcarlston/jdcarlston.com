@@ -1,6 +1,14 @@
 // Eleventy configuration for jdcarlston.com.
 // Builds the homepage, the essays index and one page per essay into _site/.
 
+const yaml = require("js-yaml");
+const site = require("./_data/site.js");
+
+// Essay pictures load from the Cloudflare media bucket on the live site once site.media.useBucket is on.
+// While previewing (npm start), or with JDC_LOCAL_MEDIA=1, they load from essays/images/ instead.
+const previewing = process.env.ELEVENTY_RUN_MODE === "serve";
+const useBucket = site.media.useBucket && !previewing && process.env.JDC_LOCAL_MEDIA !== "1";
+
 module.exports = function (eleventyConfig) {
   // Only the published site goes into the build. writing/ is the Medium
   // import staging area (poetry and essays for other sites live there),
@@ -10,9 +18,27 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add(".venv/**");
   eleventyConfig.ignores.add("netlify/**");
+  eleventyConfig.ignores.add("_to_delete/**"); // old files waiting to be deleted
 
-  eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("essays/images");
+  // Data files can be YAML (_data/*.yml), which the site editor at /admin can read and write.
+  eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
+
+  // Every picture on the site (the essays' pictures in essays/images/ and the ones in assets/, like the
+  // portrait and the icon) loads from the Cloudflare media bucket once site.media.useBucket is on,
+  // at the same path (media.jdcarlston.com/essays/images/..., media.jdcarlston.com/assets/...).
+  // Only the styles in assets/ still ship with the site then.
+  const picture = /"\/((?:essays\/images|assets)\/[^"]+\.(?:png|jpe?g|gif|webp|avif|svg|ico))"/g;
+  if (useBucket) {
+    eleventyConfig.addPassthroughCopy("assets/*.css");
+    eleventyConfig.addTransform("picturesFromMedia", (content, outputPath) =>
+      outputPath && outputPath.endsWith(".html")
+        ? content.replace(picture, (_, file) => `"${site.media.base}/${file}"`)
+        : content);
+  } else {
+    eleventyConfig.addPassthroughCopy("assets");
+    eleventyConfig.addPassthroughCopy("essays/images");
+  }
+  eleventyConfig.addPassthroughCopy("admin"); // the site editor at /admin (see admin/config.yml)
 
   // Poems and lists in the essays use single line breaks; keep them.
   eleventyConfig.amendLibrary("md", (md) => md.set({ breaks: true, html: true, typographer: true }));

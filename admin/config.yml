@@ -1,0 +1,65 @@
+# The site editor at /admin (Sveltia CMS), the same setup as maddercraft.com and red-thread-labs.com.
+#
+# While previewing (npm start): open http://localhost:8080/admin/ in Chrome or Edge,
+# choose "Work with Local Repository" and pick this project's folder. Saving writes the
+# files on your Mac; then commit and push as usual. The editor never runs git itself.
+#
+# On the live site: "Sign In Using Access Token" with a GitHub personal access token
+# that has Contents: Read and write on jdcarlston/jdcarlston.com.
+#
+# What's editable here: the essays, and the consulting services list.
+# The home and consulting pages are hand-built (.njk) and are edited in a text editor.
+
+backend:
+  name: github
+  repo: jdcarlston/jdcarlston.com
+  branch: main
+
+# Pictures added to an essay. (They also need `npm run media:upload` once the media bucket is on.)
+media_folder: essays/images
+public_folder: /essays/images
+
+collections:
+  # ---------- Essays: one Markdown file per essay in essays/ ----------
+  - name: essays
+    label: Essays
+    label_singular: Essay
+    description: "Each essay is a page at /essays/<file name>/. Line breaks are kept as typed."
+    folder: essays
+    extension: md
+    format: frontmatter
+    create: true
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{title}} · {{date | date('MMM YYYY')}}"
+    sortable_fields: [title, date, topic]
+    view_groups:
+      - { label: Topic, field: topic }
+      - { label: Series, field: series }
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle, widget: string, required: false }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD }
+      - { name: topic, label: Topic, widget: string, hint: "One word or two, lowercase, like engineering, trust or leadership." }
+      - { name: series, label: Series, widget: select, required: false, options: [ { label: "What in the World Is World-Class Engineering?", value: world-class }, { label: "My Learning Journey Through the Apparel Industry", value: apparel } ], hint: "Leave empty for a standalone essay." }
+      - { name: part, label: Part in the series, widget: number, value_type: int, required: false }
+      - { name: medium_url, label: Original Medium link, widget: string, required: false }
+      - { name: body, label: Essay, widget: markdown }
+
+  # ---------- Settings ----------
+  - name: settings
+    label: Settings
+    files:
+      - name: consulting
+        label: Consulting services
+        file: _data/consulting.yml
+        fields:
+          - { name: calendly, label: Calendar link for the free consult, widget: string }
+          - name: offers
+            label: Services
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "Shown as tiles on /consulting/ and in the form's list, in this order."
+            fields:
+              - { name: id, label: Short id, widget: string, hint: "Lowercase with hyphens. /consulting/?service=<id> preselects it." }
+              - { name: name, label: Name, widget: string }

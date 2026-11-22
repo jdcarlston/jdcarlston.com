@@ -4,3 +4,4 @@ _site/
 writing/
 .DS_Store
 .netlify/
+_to_delete/

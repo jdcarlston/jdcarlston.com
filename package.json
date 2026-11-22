@@ -1,11 +1,13 @@
 {
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.8"
+    "@11ty/eleventy": "^3.1.8",
+    "js-yaml": "^4.3.2"
   },
   "name": "jdcarlston.com",
   "private": true,
   "scripts": {
     "build": "eleventy",
-    "start": "eleventy --serve"
+    "start": "eleventy --serve",
+    "media:upload": "rclone copy essays/images r2-jdc:jdcarlston-media/essays/images --exclude .DS_Store --progress && rclone copy assets r2-jdc:jdcarlston-media/assets --exclude \"*.css\" --exclude .DS_Store --progress"
   }
 }

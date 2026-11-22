@@ -29,3 +29,22 @@ Every push to `main` deploys through Netlify, which runs `npm run build` and pub
 
 - [Red Thread Labs](https://red-thread-labs.com)
 - [LinkedIn](https://www.linkedin.com/in/jdcarlston)
+
+## Site editor (/admin)
+
+Essays and the consulting services list can be edited in a browser with Sveltia CMS, the same
+editor as maddercraft.com and red-thread-labs.com. What it can edit is set in `admin/config.yml`.
+
+- **On your Mac:** `npm start`, open http://localhost:8080/admin/ in Chrome or Edge, choose
+  **Work with Local Repository** and pick this folder. Saving writes the files here; commit and push as usual.
+- **On the live site:** /admin/ → **Sign In Using Access Token** with your GitHub token.
+
+## Essay pictures and the media bucket
+
+Every picture on the site, the essays' pictures in `essays/images/` and the portrait and icon in `assets/`,
+can be served from the Cloudflare R2 bucket
+`jdcarlston-media` at media.jdcarlston.com instead of with the site:
+
+1. `npm run media:upload` copies `essays/images/` and the pictures in `assets/` to the bucket (rclone remote `r2-jdc`;
+   `copy` only adds and updates files, `--progress` shows each file).
+2. In `_data/site.js`, set `media.useBucket` to `true`. While previewing, pictures still load from this folder.
