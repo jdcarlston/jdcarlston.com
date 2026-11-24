@@ -85,6 +85,50 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("standalone", (all) => all.filter((p) => !p.data.series));
 
+  // Search engines and AI tools: robots.txt, sitemap.xml, llms.txt, structured data, and offsite links
+  // opening in a new tab. The workings are in lib/seo.js (the same file maddercraft.com uses).
+  const consulting = yaml.load(require("fs").readFileSync("_data/consulting.yml", "utf8"));
+  require("./lib/seo.js")(eleventyConfig, {
+    site,
+    ownSite: /^https?:\/\/([a-z0-9-]+\.)*jdcarlston\.com(\/|$)/i,
+    main: "jd",
+    people: {
+      jd: {
+        name: "JD Carlston",
+        jobTitle: "Engineering leader, facilitator and coach",
+        url: site.url + "/",
+        image: `${site.media.base}/assets/profile.jpg`,
+        address: { "@type": "PostalAddress", addressLocality: "Salt Lake City", addressRegion: "UT", addressCountry: "US" },
+        sameAs: ["https://www.linkedin.com/in/jdcarlston", "https://github.com/jdcarlston",
+          "https://www.red-thread-labs.com/about/jd/", "https://maddercraft.com/bio/"],
+      },
+    },
+    pageNode(data, { ref, plain, url, image }) {
+      if (data.page.inputPath.includes("/essays/") && data.title && data.page.fileSlug !== "essays") {
+        return { "@type": "BlogPosting", headline: plain(data.title), description: plain(data.description || data.subtitle),
+          datePublished: data.page.date.toISOString().slice(0, 10), author: ref("jd"), publisher: ref("jd"), image, url, mainEntityOfPage: url };
+      }
+      if (data.page.url === "/consulting/") {
+        return { "@type": "ProfessionalService", name: "Consulting with JD Carlston", description: plain(data.description),
+          provider: ref("jd"), areaServed: "US", url, image,
+          hasOfferCatalog: { "@type": "OfferCatalog", name: "Consulting services",
+            itemListElement: consulting.offers.map((o) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: o.name } })) } };
+      }
+      if (data.page.url === "/") return { "@type": "ProfilePage", url, mainEntity: ref("jd") };
+    },
+    llms: {
+      intro: "JD Carlston is an engineering leader, facilitator and coach in Salt Lake City: more than twenty years building software teams, most recently as Director of Product Engineering at Stack Overflow. This site has JD's experience, consulting services and essays on engineering, teams and organizations.",
+      sections: [
+        { heading: "Main pages", links: () => [
+          { title: "Home", url: "/", note: "experience, approach and how to get in touch" },
+          { title: "Consulting", url: "/consulting/", note: consulting.offers.map((o) => o.name).join(", ") },
+          { title: "Essays", url: "/essays/" },
+        ] },
+        { heading: "Essays", links: (c) => c.essays.map((p) => ({ title: p.data.title, url: p.url, note: p.data.description || p.data.subtitle })) },
+      ],
+    },
+  });
+
   return {
     dir: { input: ".", includes: "_includes", data: "_data", output: "_site" },
     markdownTemplateEngine: false,

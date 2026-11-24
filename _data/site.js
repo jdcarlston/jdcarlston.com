@@ -4,6 +4,9 @@ const path = require("path");
 module.exports = {
   name: "JD Carlston",
   url: "https://jdcarlston.com",
+  // true lets AI companies train their models on the site's writing as well as cite it in answers.
+  // false keeps the site in AI answers but out of training (see robots.txt, made by lib/seo.js).
+  allowAITraining: true,
   description:
     "JD Carlston: engineering leader, facilitator and coach in Salt Lake City. Systems that ship, teams that deliver, and customers that buy.",
   email: "contact@red-thread-labs.com",
