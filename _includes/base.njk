@@ -51,5 +51,10 @@
     </div>
     <p class="wrap footer__fine mono">© {{ site.year }} JD Carlston · Draper, Utah · <a href="https://github.com/jdcarlston/jdcarlston.com">source on GitHub</a></p>
   </footer>
+{#- Visitor counting: Cloudflare Web Analytics (no cookies). Paste the site's token into
+    analytics.cloudflareToken in _data/site.js to turn it on; empty means no counting. #}
+{%- if site.analytics and site.analytics.cloudflareToken %}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ site.analytics.cloudflareToken }}"}'></script>
+{%- endif %}
 </body>
 </html>

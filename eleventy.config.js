@@ -23,6 +23,16 @@ module.exports = function (eleventyConfig) {
   // Data files can be YAML (_data/*.yml), which the site editor at /admin can read and write.
   eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
 
+  // The consulting form's Netlify Function (netlify/functions/submission-created.mjs) needs the
+  // service names and Calendly link too, but it can't read YAML. So each build writes a JSON copy
+  // of _data/consulting.yml next to it. Netlify bundles the functions after this build runs.
+  // The copy is generated, so it's in .gitignore: edit consulting.yml, never the JSON.
+  eleventyConfig.on("eleventy.before", () => {
+    const fs = require("fs");
+    const data = yaml.load(fs.readFileSync("_data/consulting.yml", "utf8"));
+    fs.writeFileSync("netlify/functions/consulting.generated.json", JSON.stringify(data, null, 2) + "\n");
+  });
+
   // Every picture on the site (the essays' pictures in essays/images/ and the ones in assets/, like the
   // portrait and the icon) loads from the Cloudflare media bucket once site.media.useBucket is on,
   // at the same path (media.jdcarlston.com/essays/images/..., media.jdcarlston.com/assets/...).

@@ -17,9 +17,10 @@
  *   KIT_API_KEY     — optional; only needed for the updates opt-in
  *   KIT_FORM_ID     — optional; the Kit form people who opt in are added to
  */
-import consulting from '../../_data/consulting.js';
+// Written from _data/consulting.yml by every Eleventy build (see eleventy.config.js).
+import consulting from './consulting.generated.json' with { type: 'json' };
 
-const SITE = 'https://jdcarlston.com';
+const SITE = 'https://www.jdcarlston.com';
 const FROM = () => process.env.EMAIL_FROM || 'JD Carlston <contact@red-thread-labs.com>';
 const REPLY_TO = () => process.env.EMAIL_REPLY_TO || 'contact@red-thread-labs.com';
 const NOTIFY_TO = () => process.env.NOTIFY_TO || 'contact@red-thread-labs.com';

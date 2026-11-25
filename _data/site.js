@@ -3,10 +3,14 @@ const path = require("path");
 
 module.exports = {
   name: "JD Carlston",
-  url: "https://jdcarlston.com",
+  url: "https://www.jdcarlston.com",
+  // Visitor counting with Cloudflare Web Analytics (free, no cookies, so no cookie banner).
+  // In Cloudflare: Analytics & Logs → Web Analytics → Add a site, enter this site's domain, copy the
+  // token from the snippet it shows, and paste it here between the quotes.
+  analytics: { cloudflareToken: "" },
   // true lets AI companies train their models on the site's writing as well as cite it in answers.
   // false keeps the site in AI answers but out of training (see robots.txt, made by lib/seo.js).
-  allowAITraining: true,
+  allowAITraining: false,
   description:
     "JD Carlston: engineering leader, facilitator and coach in Salt Lake City. Systems that ship, teams that deliver, and customers that buy.",
   email: "contact@red-thread-labs.com",

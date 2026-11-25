@@ -6,3 +6,4 @@ writing/
 .netlify/
 _to_delete/
 .wtmp/
+netlify/functions/consulting.generated.json
