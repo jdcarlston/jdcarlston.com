@@ -10,10 +10,11 @@
   <meta property="og:description" content="{{ description or subtitle or site.description }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:type" content="{% if medium_url %}article{% else %}website{% endif %}">
-  {#- The picture shown when a page is shared: the page's ogImage, otherwise the portrait. #}
-  {%- set shareImage = ogImage or (site.media.base + "/assets/profile.jpg") %}
+  {#- The picture shown when a page is shared: the page's ogImage, otherwise the 1200x630 site card
+      (assets/share-jdcarlston.jpg: headline, portrait, address). #}
+  {%- set shareImage = ogImage or (site.media.base + "/assets/share-jdcarlston.jpg") %}
   <meta property="og:image" content="{{ shareImage }}">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   {% structuredData shareImage %}
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
