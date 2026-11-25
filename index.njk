@@ -10,12 +10,13 @@ heroHeader: true
       {% include "nav.njk" %}
     </header>
     <div class="hero__copy">
+      {#- The portrait sits at the top of the introduction, above the trust equation. #}
+      {% if site.hasPortrait %}
+      <img class="portrait" src="/assets/profile.jpg" alt="JD Carlston" width="120" height="120">
+      {% endif %}
       <p class="mono teal hero__eq">Trust = Consistency / Time</p>
       <h1 class="hero__title">Where systems<br>meet people.</h1>
       <div class="hero__intro">
-        {% if site.hasPortrait %}
-        <img class="portrait" src="/assets/profile.jpg" alt="JD Carlston" width="112" height="112">
-        {% endif %}
         <p class="lede">I'm JD Carlston, an engineering leader, facilitator<br> and coach in Salt Lake City. I've spent more than twenty<br> years building software and the teams that own it.</p>
       </div>
       <p class="muted hero__looking">Most recently I was Director of Product Engineering at Stack Overflow. Now I'm looking for my next role as a Director or VP of Engineering, Principal Architect or Fractional CTO, in Salt Lake or remote.</p>

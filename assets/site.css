@@ -61,14 +61,16 @@ h1, h2, h3 { text-wrap: balance; }
 .hero { position: relative; overflow: hidden; border-bottom: 4px solid var(--oxblood); }
 .hero__art { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero__inner { position: relative; padding-top: 8px; padding-bottom: 96px; }
-.hero__bar { padding-left: 0; padding-right: 0; margin-bottom: 96px; }
-.hero__copy { max-width: 780px; padding-top: 24px; }
+/* The portrait sits centered between the menu and the trust equation: the same space
+   (--portrait-gap) above it and below it. */
+.hero { --portrait-gap: 40px; }
+.hero__bar { padding-left: 0; padding-right: 0; margin-bottom: 0; }
+.hero__copy { max-width: 780px; padding-top: var(--portrait-gap); }
 .hero__eq { margin: 0 0 24px; font-size: 15px; }
 .hero__title { margin: 0 0 28px; font-size: clamp(46px, 6.4vw, 92px); line-height: 0.98; font-weight: 600; letter-spacing: -0.03em; }
 .hero__intro { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; }
-.portrait { order: 2; flex: 0 0 auto; width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 2px solid var(--teal); background: var(--ink-2); }
-/* Set line breaks on wide screens so the paragraph is exactly as wide as its
-   longest line and the portrait sits right beside the text. */
+.portrait { display: block; margin: 0 0 var(--portrait-gap); width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--teal); background: var(--ink-2); }
+/* Set line breaks on wide screens so the paragraph is exactly as wide as its longest line. */
 .lede { margin: 0; font-size: 21px; line-height: 1.5; flex: 0 1 auto; min-width: 0; }
 .hero__looking { margin: 0 0 36px; max-width: 54ch; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -81,10 +83,8 @@ h1, h2, h3 { text-wrap: balance; }
 @media (max-width: 760px) {
   .hero__art { opacity: 0.3; }
   .lede br { display: none; }
-  /* On phones the portrait sits above the introduction. */
   .hero__intro { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .portrait { order: 0; }
-  .hero__bar { margin-bottom: 56px; }
+  .hero { --portrait-gap: 24px; }
   .hero__intro { align-items: flex-start; }
   .portrait { width: 72px; height: 72px; }
 }
